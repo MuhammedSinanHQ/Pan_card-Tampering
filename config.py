@@ -8,9 +8,10 @@ class Config(object):
 
     basedir = os.path.abspath(os.path.dirname(__file__))
 
-    SECRET_KEY = 'sinanpythonflaskpancardtamperingapp'
+    SECRET_KEY = environ.get('SECRET_KEY') or 'sinanpythonflaskpancardtamperingapp'
 
-    UPLOADS = "/home/username/app/app/static/uploads"
+    # Use relative paths from basedir
+    UPLOADS = os.path.join(basedir, "app", "static", "uploads")
 
     SESSION_COOKIE_SECURE = True
     DEFAULT_THEME = None
@@ -23,3 +24,8 @@ class DevelopmentConfig(Config):
 
 class DebugConfig(Config):
     DEBUG = False
+
+
+class ProductionConfig(Config):
+    DEBUG = False
+    TESTING = False

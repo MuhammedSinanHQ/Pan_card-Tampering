@@ -6,7 +6,7 @@
     <title>Pan Card Tampering</title>
 
     <!-- CSS -->
-    <link href="./static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="{{ url_for('static', filename='css/materialize.css') }}" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 
 <body>
@@ -77,7 +77,7 @@
 </div>
 
 <!-- Scripts -->
-<script src="./static/js/materialize.js"></script>
+<script src="{{ url_for('static', filename='js/materialize.js') }}"></script>
 <script type="text/javascript">
     document.getElementById('file_upload').onchange = function () {
         document.getElementById('file_name').value = this.value.slice(12, 100);
