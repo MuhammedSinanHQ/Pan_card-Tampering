@@ -22,15 +22,22 @@ def resize_image(image_path, output_path, width=250, height=160):
     
     Returns:
         PIL Image object
+        
+    Raises:
+        OSError: If the image file cannot be opened or saved
+        ValueError: If the image format is not supported
     """
-    image = Image.open(image_path).resize((width, height))
-    
-    # Convert RGBA to RGB if necessary (for JPEG compatibility)
-    if image.mode == 'RGBA':
-        image = image.convert('RGB')
-    
-    image.save(output_path)
-    return image
+    try:
+        image = Image.open(image_path).resize((width, height))
+        
+        # Convert RGBA to RGB if necessary (for JPEG compatibility)
+        if image.mode == 'RGBA':
+            image = image.convert('RGB')
+        
+        image.save(output_path)
+        return image
+    except Exception as e:
+        raise ValueError(f"Error processing image: {str(e)}")
 
 
 def convert_to_grayscale(image):
@@ -134,6 +141,9 @@ def compare_pan_cards(original_path, uploaded_path, output_dir):
     
     Returns:
         dict: Contains ssim_score, percentage, and paths to generated images
+        
+    Raises:
+        ValueError: If images cannot be loaded or processed
     """
     # Create output directory if it doesn't exist
     os.makedirs(output_dir, exist_ok=True)
@@ -141,6 +151,12 @@ def compare_pan_cards(original_path, uploaded_path, output_dir):
     # Read images
     original_image = cv2.imread(original_path)
     uploaded_image = cv2.imread(uploaded_path)
+    
+    # Validate that images were loaded successfully
+    if original_image is None:
+        raise ValueError(f"Failed to load original image from {original_path}")
+    if uploaded_image is None:
+        raise ValueError(f"Failed to load uploaded image from {uploaded_path}")
     
     # Convert to grayscale
     original_gray = convert_to_grayscale(original_image)

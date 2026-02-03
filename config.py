@@ -12,6 +12,9 @@ class Config(object):
 
     # Use relative paths from basedir
     UPLOADS = os.path.join(basedir, "app", "static", "uploads")
+    
+    # Path to original PAN card for comparison
+    ORIGINAL_PAN_CARD_PATH = os.path.join(basedir, "sample_data", "image", "original.png")
 
     SESSION_COOKIE_SECURE = True
     DEFAULT_THEME = None
