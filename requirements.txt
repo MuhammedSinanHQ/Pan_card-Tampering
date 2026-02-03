@@ -1,0 +1,6 @@
+flask
+imutils
+opencv-python-headless
+Pillow
+scikit-learn
+gunicorn
