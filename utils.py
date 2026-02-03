@@ -15,7 +15,7 @@ def resize_image(image_path, output_path, width=250, height=160):
     Resize an image to specified dimensions
     
     Args:
-        image_path: Path to input image
+        image_path: Path to input image or file object
         output_path: Path to save resized image
         width: Target width (default: 250)
         height: Target height (default: 160)
@@ -24,6 +24,11 @@ def resize_image(image_path, output_path, width=250, height=160):
         PIL Image object
     """
     image = Image.open(image_path).resize((width, height))
+    
+    # Convert RGBA to RGB if necessary (for JPEG compatibility)
+    if image.mode == 'RGBA':
+        image = image.convert('RGB')
+    
     image.save(output_path)
     return image
 
