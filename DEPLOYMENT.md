@@ -9,7 +9,7 @@ Before you begin, ensure you have:
 1. A Render account (sign up at https://render.com)
 2. Git installed and configured
 3. The repository hosted on GitHub, GitLab, or Bitbucket
-4. Python 3.7 or higher
+4. Python 3.7 or higher (render.yaml is configured with Python 3.12.3, but 3.7+ is supported)
 
 ## Deployment Options
 
