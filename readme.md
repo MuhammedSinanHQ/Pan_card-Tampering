@@ -53,69 +53,42 @@ http://localhost:5000
 
 **Step 6:** Test the application using sample images from `sample_data/image/` directory
 
-## Heroku Deployment
+## Render Deployment
 
-### Prerequisites for Heroku
+For detailed deployment instructions, see [DEPLOYMENT.md](DEPLOYMENT.md).
 
-- Heroku account (sign up at https://heroku.com)
-- Heroku CLI installed (https://devcenter.heroku.com/articles/heroku-cli)
-- Git installed
+### Quick Start - Deploy to Render
 
-### Deployment Steps
+#### Method 1: Blueprint Deployment (Recommended)
 
-**Step 1:** Login to Heroku
-```bash
-heroku login
-```
+1. Fork or clone this repository to your GitHub account
+2. Sign up for a [Render account](https://render.com)
+3. In the Render Dashboard, click **"New +"** → **"Blueprint"**
+4. Connect your GitHub repository
+5. Select this repository - Render will detect `render.yaml`
+6. Click **"Apply"** to deploy
 
-**Step 2:** Create a new Heroku app
-```bash
-heroku create your-app-name
-```
-Or let Heroku generate a random name:
-```bash
-heroku create
-```
+Your app will be live at: `https://your-app-name.onrender.com`
 
-**Step 3:** Verify your files are ready
-Make sure you have these files in your repository:
-- `app.py` - Flask application entry point
-- `Procfile` - Tells Heroku how to run the app
-- `requirements.txt` - Lists all Python dependencies
-- `utils.py` - Utility functions for image processing
+#### Method 2: Manual Setup
 
-**Step 4:** Initialize git repository (if not already done)
-```bash
-git init
-git add .
-git commit -m "Initial commit for Heroku deployment"
-```
+1. Sign up for a [Render account](https://render.com)
+2. Click **"New +"** → **"Web Service"**
+3. Connect your GitHub repository
+4. Configure the following:
+   - **Build Command:** `pip install -r requirements.txt`
+   - **Start Command:** `gunicorn app:app --timeout 60`
+   - **Environment:** Python 3
+5. Add environment variable: `SECRET_KEY` (generate a secure random string)
+6. Click **"Create Web Service"**
 
-**Step 5:** Deploy to Heroku
-```bash
-git push heroku main
-```
-If you're on master branch:
-```bash
-git push heroku master
-```
-
-**Step 6:** Open your deployed app
-```bash
-heroku open
-```
-
-**Step 7:** View logs (if needed)
-```bash
-heroku logs --tail
-```
-
-### Important Notes for Heroku Deployment
+### Important Notes for Render Deployment
 
 - The app uses `opencv-python-headless` which is optimized for server environments
-- Gunicorn is used as the WSGI server (defined in Procfile)
-- File uploads are temporarily stored and not persisted across dyno restarts
-- For production use, consider using cloud storage (S3, Cloudinary) for file persistence
+- Gunicorn is used as the WSGI server
+- Free tier services spin down after 15 minutes of inactivity (30-60s cold start)
+- File uploads are temporarily stored and not persisted across restarts
+- For production use, consider using cloud storage (S3, Cloudinary) or Render Disks
 
 ## Project Structure
 
@@ -138,7 +111,7 @@ Pan_card-Tampering/
 ├── utils.py                 # Image processing utilities
 ├── config.py                # Configuration settings
 ├── requirements.txt         # Python dependencies
-├── Procfile                 # Heroku process configuration
+├── render.yaml              # Render blueprint configuration
 ├── .gitignore              # Git ignore rules
 └── readme.md               # This file
 ```
@@ -185,9 +158,9 @@ Use the sample images provided in `sample_data/image/`:
 - Check file permissions
 - Verify file size is reasonable (< 10MB)
 
-**Issue:** Heroku deployment fails
-- Check Heroku logs: `heroku logs --tail`
-- Verify Procfile exists and is correctly formatted
+**Issue:** Render deployment fails
+- Check Render logs in the Dashboard (Logs tab)
+- Verify render.yaml or start command is correctly configured
 - Ensure all dependencies are in requirements.txt
 
 ## License
