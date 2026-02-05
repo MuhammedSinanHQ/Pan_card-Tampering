@@ -2,6 +2,7 @@ services:
   - type: web
     name: pan-card-tampering
     env: python
+    plan: free
     region: oregon
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn app:app --timeout 60
