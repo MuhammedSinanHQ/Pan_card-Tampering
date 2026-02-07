@@ -13,6 +13,6 @@ services:
       - key: SECRET_KEY
         generateValue: true
       - key: MAX_CONTENT_LENGTH
-        value: "16777216"  # 16MB in bytes
+        value: "16777216"  # 16 MiB in bytes
       - key: FLASK_ENV
         value: production
