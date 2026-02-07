@@ -4,8 +4,15 @@ services:
     env: python
     plan: free
     region: oregon
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app --timeout 60
+    buildCommand: |
+      pip install --upgrade pip
+      pip install -r requirements.txt
+    startCommand: gunicorn app:app --workers 2 --timeout 120 --bind 0.0.0.0:$PORT
+    healthCheckPath: /
     envVars:
       - key: SECRET_KEY
         generateValue: true
+      - key: MAX_CONTENT_LENGTH
+        value: "16777216"  # 16MB in bytes
+      - key: FLASK_ENV
+        value: production
