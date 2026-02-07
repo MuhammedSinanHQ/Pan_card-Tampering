@@ -10,6 +10,9 @@ class Config(object):
 
     SECRET_KEY = environ.get('SECRET_KEY') or 'sinanpythonflaskpancardtamperingapp'
 
+    # Maximum file upload size (16MB default)
+    MAX_CONTENT_LENGTH = int(environ.get('MAX_CONTENT_LENGTH', 16777216))
+
     # Use relative paths from basedir
     UPLOADS = os.path.join(basedir, "app", "static", "uploads")
     
