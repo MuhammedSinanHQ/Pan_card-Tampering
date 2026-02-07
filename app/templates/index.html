@@ -40,9 +40,9 @@
                             <br>
 
                             <div class="file-field input-field">
+                                <input type="file" name="file_upload" id="file_upload" accept="image/*"/>
                                 <div class="btn" style="background-color: #5e72e4">
                                     <span>Browse</span>
-                                    <input type="file" name="file_upload" id="file_upload"/>
                                 </div>
 
                                 <div class="file-path-wrapper">
@@ -80,7 +80,7 @@
 <script src="{{ url_for('static', filename='js/materialize.js') }}"></script>
 <script type="text/javascript">
     document.getElementById('file_upload').onchange = function () {
-        document.getElementById('file_name').value = this.value.slice(12, 100);
+        document.getElementById('file_name').value = this.files[0] ? this.files[0].name : '';
     };
 </script>
 
